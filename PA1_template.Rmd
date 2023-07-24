@@ -1,23 +1,45 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
+  pdf_document: default
   html_document:
-    keep_md: true
+    keep_md: yes
 ---
 
 
 ## Loading and preprocessing the data
 
-```{r}
-# file.URL <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
-# file.name <- "data.csv"
 
+This section describes the process to unzip dataset file and read it into a dataframe called "**activity**." The first two lines of code which have been commented out shows the steps to download the dataset if unavailable in the project folder. 
+
+
+```{r echo=TRUE, results='hide'}
+# file.URL <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 # download.file(file.URL, file.dir, method = "auto")
+
+
 file.name <- "activity.csv"
-file.dir <- paste0(getwd(), "/activity.zip")
+file.dir <- "./activity.zip"
 unzip(file.dir)
 activity <- read.csv(file.name, na.strings = "NA")
 file.remove(file.name)
+```
+
+
+Next, we will check the data and perform any pre-processing as required.
+```{r}
+# check dataframe
+str(activity)
+
+
+# check for missing values
+colSums(is.na(activity))
+
+
+# convert date from character to date format
+activity$date <- as.Date(activity$date, format="%Y-%m-%d")
+head(activity)
+str(activity)
 ```
 
 
@@ -28,7 +50,11 @@ file.remove(file.name)
 
 
 
+
+
 ## What is the average daily activity pattern?
+
+
 
 
 
@@ -36,4 +62,11 @@ file.remove(file.name)
 
 
 
+
+
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+
+
+

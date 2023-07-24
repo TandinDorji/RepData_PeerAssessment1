@@ -356,6 +356,46 @@ display: none;
 
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
+<p>This section describes the process to unzip dataset file and read it
+into a dataframe called “<strong>activity</strong>.” The first two lines
+of code which have been commented out shows the steps to download the
+dataset if unavailable in the project folder.</p>
+<pre class="r"><code># file.URL &lt;- &quot;https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip&quot;
+# download.file(file.URL, file.dir, method = &quot;auto&quot;)
+
+
+file.name &lt;- &quot;activity.csv&quot;
+file.dir &lt;- &quot;./activity.zip&quot;
+unzip(file.dir)
+activity &lt;- read.csv(file.name, na.strings = &quot;NA&quot;)
+file.remove(file.name)</code></pre>
+<p>Next, we will check the data and perform any pre-processing as
+required.</p>
+<pre class="r"><code># check dataframe
+str(activity)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    17568 obs. of  3 variables:
+##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : chr  &quot;2012-10-01&quot; &quot;2012-10-01&quot; &quot;2012-10-01&quot; &quot;2012-10-01&quot; ...
+##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...</code></pre>
+<pre class="r"><code># check for missing values
+colSums(is.na(activity))</code></pre>
+<pre><code>##    steps     date interval 
+##     2304        0        0</code></pre>
+<pre class="r"><code># convert date from character to date format
+activity$date &lt;- as.Date(activity$date, format=&quot;%Y-%m-%d&quot;)
+head(activity)</code></pre>
+<pre><code>##   steps       date interval
+## 1    NA 2012-10-01        0
+## 2    NA 2012-10-01        5
+## 3    NA 2012-10-01       10
+## 4    NA 2012-10-01       15
+## 5    NA 2012-10-01       20
+## 6    NA 2012-10-01       25</code></pre>
+<pre class="r"><code>str(activity)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    17568 obs. of  3 variables:
+##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : Date, format: &quot;2012-10-01&quot; &quot;2012-10-01&quot; ...
+##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
