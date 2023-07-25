@@ -1,10 +1,21 @@
 ---
 title: 'Reproducible Research: Peer Assessment 1'
 output:
-  pdf_document: default
   html_document:
+    theme: default
     keep_md: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
 ---
+
+```{r setoptions, echo=FALSE, results='hide', message=FALSE}
+# Install required libraries and set global markdown options
+library(tidyverse)
+library(knitr)
+opts_chunk$set(echo=FALSE, results="asis", 
+               cache=TRUE, warning=TRUE, message=FALSE)
+```
 
 
 ## Loading and preprocessing the data
