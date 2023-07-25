@@ -13,15 +13,14 @@ output:
 # Install required libraries and set global markdown options
 library(tidyverse)
 library(knitr)
-opts_chunk$set(echo=FALSE, results="asis", 
-               cache=TRUE, warning=TRUE, message=FALSE)
+opts_chunk$set(echo=TRUE, cache=TRUE, warning=TRUE, message=FALSE)
 ```
 
 
 ## Loading and preprocessing the data
 
 
-This section describes the process to unzip dataset file and read it into a dataframe called "**activity**." The first two lines of code which have been commented out shows the steps to download the dataset if unavailable in the project folder. 
+This section describes the process to unzip dataset file and read it into a dataframe called "**`activity`**." The first two lines of code which have been commented out shows the steps to download the dataset if unavailable in the project folder. 
 
 
 ```{r echo=TRUE, results='hide'}
@@ -34,6 +33,7 @@ file.dir <- "./activity.zip"
 unzip(file.dir)
 activity <- read.csv(file.name, na.strings = "NA")
 file.remove(file.name)
+rm(file.dir, file.name)
 ```
 
 
@@ -56,9 +56,26 @@ str(activity)
 
 
 
-
 ## What is mean total number of steps taken per day?
+```{r results='asis'}
+mean.steps <- mean(activity$steps, na.rm = TRUE)
+median.steps <- median(activity$steps, na.rm = TRUE)
 
+steps.hist <- ggplot(data = na.omit(activity)) + 
+        geom_histogram(mapping = aes(x=steps, fill=..count..), binwidth = 50) + 
+        labs(title = "Distribution of daily number of steps", 
+             x = "Number of steps taken in 5 minute intervals each day",
+             y = "Count") + 
+        theme_minimal() +
+         theme(
+                legend.position = "none"
+        )
+
+print(steps.hist)
+```
+
+
+The average number of steps taken in a 5-minute interval is **`r format(mean.steps, digits = 2)`** and the median is **`r median.steps`**.
 
 
 
