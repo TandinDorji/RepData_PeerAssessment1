@@ -60,12 +60,20 @@ axis(1, at = interval.breaks, labels = interval.labels)
 # Which 5-minute interval, on average across all the days in the dataset, 
 # contains the maximum number of steps?
 max.step.index <- which.max(daily.steps$Average.Daily.Steps)
-time_start <- sprintf("%02d:%02d", ((max.step.index*5) %/% 60), 
-                      ((max.step.index*5) %% 60))
-time_end <- sprintf("%02d:%02d", ((max.step.index*5 + 5) %/% 60), 
-                    ((max.step.index*5 + 5) %% 60))
+time_start <- sprintf("%02d:%02d", ((max.step.index * 5) %/% 60),
+                      ((max.step.index * 5) %% 60))
+time_end <- sprintf("%02d:%02d", ((max.step.index * 5 + 5) %/% 60),
+                    ((max.step.index * 5 + 5) %% 60))
 max.steps <- daily.steps$Average.Daily.Steps[max.step.index]
-cat(paste0("From ", time_start, " - ", time_end, "AM with ", format(max.steps, digits = 3) , " steps."))
+cat(paste0(
+        "From ",
+        time_start,
+        " - ",
+        time_end,
+        "AM with ",
+        format(max.steps, digits = 3) ,
+        " steps."
+))
 
 
 #*******************************************************************************
