@@ -13,7 +13,12 @@ output:
 # Install required libraries and set global markdown options
 library(tidyverse)
 library(knitr)
-opts_chunk$set(echo=TRUE, cache=TRUE, warning=TRUE, message=FALSE)
+opts_chunk$set(
+        echo = TRUE,
+        cache = TRUE,
+        warning = TRUE,
+        message = FALSE
+)
 ```
 
 
@@ -48,7 +53,7 @@ colSums(is.na(activity))
 
 
 # convert date from character to date format
-activity$date <- as.Date(activity$date, format="%Y-%m-%d")
+activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
 head(activity)
 str(activity)
 ```
@@ -61,15 +66,14 @@ str(activity)
 mean.steps <- mean(activity$steps, na.rm = TRUE)
 median.steps <- median(activity$steps, na.rm = TRUE)
 
-steps.hist <- ggplot(data = na.omit(activity)) + 
-        geom_histogram(mapping = aes(x=steps, fill=..count..), binwidth = 50) + 
-        labs(title = "Distribution of daily number of steps", 
+steps.hist <- ggplot(data = na.omit(activity)) +
+        geom_histogram(mapping = aes(x = steps, fill = ..count..),
+                       binwidth = 50) +
+        labs(title = "Distribution of daily number of steps",
              x = "Number of steps taken in 5 minute intervals each day",
-             y = "Count") + 
+             y = "Count") +
         theme_minimal() +
-         theme(
-                legend.position = "none"
-        )
+        theme(legend.position = "none")
 
 print(steps.hist)
 ```
