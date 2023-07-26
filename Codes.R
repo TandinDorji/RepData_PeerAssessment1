@@ -16,28 +16,25 @@ activity <- read.csv(file.name, na.strings = "NA")
 file.remove(file.name)
 rm(file.dir, file.name)
 
-activity$date <- as.Date(activity$date, format="%Y-%m-%d")
+activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
 
 
 #*******************************************************************************
 ### What is mean total number of steps taken per day?
 
-mean.steps <- mean(activity$steps, na.rm = TRUE)
-median.steps <- median(activity$steps, na.rm = TRUE)
+total.daily.steps <-
+        with(activity, tapply(steps, date, sum, na.rm = TRUE))
+mean.daily.steps <- mean(total.steps)
+median.daily.steps <- median(total.steps)
 
-steps.hist <- ggplot(data = na.omit(activity)) + 
-        geom_histogram(mapping = aes(x=steps, fill=..count..), binwidth = 50) + 
-        labs(title = "Distribution of daily number of steps", 
-             x = "Number of steps taken in 5 minute intervals each day",
-             y = "Count") + 
-        theme_minimal() +
-        theme(
-                legend.position = "none"
-        ) + 
-        scale_y_continuous(breaks = c(0, 2500, 5000, 7500, 10000, 12500, 15000),
-                           limits = c(0, 15000))
-
-steps.hist
+hist(
+        x = total.daily.steps,
+        breaks = 8,
+        col = "cornflowerblue",
+        main = "Total number of steps taken each day",
+        xlab = "Total daily steps",
+        ylab = "Count"
+)
 
 
 #*******************************************************************************
